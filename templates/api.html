@@ -1,0 +1,15 @@
+{% extends "index.html" %}
+{% block content %}
+	<p>To use the API, send a HTTP POST request to {{ url_for('read_api') }} with
+	the "txt" key containing the text you want to classify</p>
+
+	<p> You will receive a JSON response of the form: </p>
+	<pre><code>
+		{
+		  "result": {
+		    "sentiment" : "Positive",
+		    "confidence" : 3.422451
+		  }
+		}
+	</code></pre>
+{% endblock %}
