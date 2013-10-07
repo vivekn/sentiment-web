@@ -2,24 +2,45 @@
 <html>
 	<head>
 		<title>Sentiment Tool</title>
+		{% block templates %}
+			<script type="text/html" id="templ-results">
+			<div class="container col-md-8 col-md-offset-2">
+				<blockquote>
+					<p id="text"> <%= sentence %> </p>
+					<p> <b>Result: </b> <%= result %> </p>
+					<p> <b>Confidence Level: </b> <%= confidence %> </p>
+				</blockquote>
+			</div>
+			</script>
+		{% endblock %}
+		<link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet" media="screen">
+		<link href="{{ url_for('static', filename='css/styles.css') }}" rel="stylesheet" media="screen">
 	</head>
 	<body>
-		<div id="container">
+		<div id="container" class="container col-md-8 col-md-offset-2">
 		{% block content %}
-			<form action="{{ url_for('evaldata') }}" method="POST">
-				<textarea name="txt" id="txt" cols="30" rows="10"></textarea>
-				<input type="submit" value="submit"/>
+			<center> <p> Paste or enter a piece of text below to check its sentiment. </p> </center>
+			<form id="form" role="form">
+				<textarea name="txt" id="txt" cols="30" rows="10" class="form-control input-sm"></textarea>
+				<input type="button" value="Submit" id="submit" class="form-control"/>
 			</form>
+			<br><br>
+			<div id="result"></div>
+		{% endblock %}
+		{% block footer %}
+			<div id="footer" class="navbar container col-md-4 col-md-offset-4">
+				<ul class="nav navbar-nav">
+					<li><a href="{{ url_for('home') }}">Home</a></li>
+					<li><a href="{{ url_for('api') }}">API</a></li>
+					<li><a href="http://github.com/vivekn/sentiment">Github</a></li>
+				</ul>
+			</div>
 		{% endblock %}
 		</div>	
-		{% block footer %}
-		<div id="footer">
-			<ul>
-				<li><a href="{{ url_for('home') }}">Home</a></li>
-				<li><a href="{{ url_for('api') }}">API</a></li>
-				<li><a href="">Github</a></li>
-			</ul>
-		</div>
+		{% block scripts %}
+			<script type="text/javascript" src="{{ url_for('static', filename='underscore-min.js') }}"></script>
+			<script type="text/javascript" src="{{ url_for('static', filename='app.js') }}"></script>
 		{% endblock %}
+		
 	</body>
 </html>
