@@ -17,7 +17,7 @@ features = set()
 totals = [0, 0]
 delchars = ''.join(c for c in map(chr, range(128)) if not c.isalnum())
 
-CDATA_FILE = "countdata.pickle"
+# CDATA_FILE = "countdata.pickle"
 FDATA_FILE = "reduceddata.pickle"
 
 
