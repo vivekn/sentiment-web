@@ -1,6 +1,6 @@
 {% extends "index.html" %}
 {% block content %}
-	<p>To use the API, send a HTTP POST request to {{ host + url_for('read_api') }} with
+	<p>To use the API, send a HTTP POST request to <code>{{ host + url_for('read_api') }}</code> with
 	the "txt" key containing the text you want to classify</p>
 
 	<p> You will receive a JSON response of the form: </p>
