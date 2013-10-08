@@ -43,4 +43,7 @@ def evaldata():
 @app.route('/docs/api/')
 def api():
 	return render_template('api.html', host=HOST)
-	
+
+@app.route('/about/')
+def about():
+	return render_template('about.html')

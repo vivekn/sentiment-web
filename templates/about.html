@@ -1,0 +1,21 @@
+{% extends "index.html" %}
+{% block content %}
+	<p>
+		This tool works by examining individual words and short sequences of words (n-grams) and comparing
+		them with a probability model. The probability model is built on a prelabeled test set
+		of IMDb movie reviews. It can also detect negations in phrases, i.e, the phrase "not bad" will be
+		classified as positive despite having two individual words with a negative sentiment.
+	</p>
+
+	<p>
+		You can read more about the details of the model in <a href="http://arxiv.org/abs/1305.6143"> this paper </a>.
+		The code for the web application and the training module is open source and <a href="https://github.com/vivekn/sentiment-web"> available on Github </a>. 
+	</p>
+
+	<p>
+		I've also provided an API for this tool, details on how to use it are on 
+		<a href="{{ url_for('api') }}"> this page </a>
+	</p>
+{% endblock %}
+{% block scripts %}
+{% endblock %}
