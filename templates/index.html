@@ -12,6 +12,14 @@
 				</blockquote>
 			</div>
 			</script>
+			<div id="fb-root"></div>
+			<script>(function(d, s, id) {
+			  var js, fjs = d.getElementsByTagName(s)[0];
+			  if (d.getElementById(id)) return;
+			  js = d.createElement(s); js.id = id;
+			  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=207311602615822";
+			  fjs.parentNode.insertBefore(js, fjs);
+			}(document, 'script', 'facebook-jssdk'));</script>
 		{% endblock %}
 		<link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet" media="screen">
 		<link href="{{ url_for('static', filename='css/styles.css') }}" rel="stylesheet" media="screen">
@@ -29,16 +37,24 @@
 		{% endblock %}
 		{% block footer %}
 			<div id="footer" class="navbar container col-md-5 col-md-offset-4">
-				<ul class="nav navbar-nav">
+					
+					<ul class="nav navbar-nav">
 					<li><a href="{{ url_for('home') }}">Home</a></li>
 					<li><a href="{{ url_for('api') }}">API</a></li>
 					<li><a href="{{ url_for('about') }}">About</a></li>
 					<li><a href="http://github.com/vivekn/sentiment-web">Github</a></li>
+
+					<center>
+					<a href="https://twitter.com/share" class="twitter-share-button" data-url="http://sentiment.vivekn.com" data-text="Open source sentiment analysis tool and API" data-via="_vivek_n">Tweet</a>
+					<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+					<div class="fb-like" data-href="http://sentiment.vivekn.com" data-width="The pixel width of the plugin" data-height="8" data-colorscheme="light" data-layout="button_count" data-action="like" data-show-faces="true" data-send="false"></div>			
+					</center>
 				</ul>
 			</div>
 		{% endblock %}
 		</div>	
 		{% block scripts %}
+			<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
 			<script type="text/javascript" src="{{ url_for('static', filename='underscore-min.js') }}"></script>
 			<script type="text/javascript" src="{{ url_for('static', filename='app.js') }}"></script>
 		{% endblock %}
