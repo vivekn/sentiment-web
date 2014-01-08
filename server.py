@@ -3,6 +3,7 @@ from info import classify2
 from math import e
 from redis import Redis
 from config import STATS_KEY, HOST, RHOST, RPASS, RPORT
+from cors import crossdomain
 
 app = Flask(__name__)
 app.debug = True
@@ -17,7 +18,7 @@ def get_sentiment_info(text):
 		sentiment = "Positive" if flag else "Negative"
 	else:
 		sentiment = "Neutral"
-	conf = "%.4f" % percentage_confidence(confidence) 
+	conf = "%.4f" % percentage_confidence(confidence)
 	return (sentiment, conf)
 
 @app.route('/')
@@ -26,6 +27,7 @@ def home():
 	return render_template("index.html")
 
 @app.route('/api/text/', methods=["POST"])
+@crossdomain(origin='*')
 def read_api():
 	text = request.form.get("txt")
 	sentiment, confidence = get_sentiment_info(text)
@@ -34,6 +36,7 @@ def read_api():
 	return jsonify(result=result)
 
 @app.route('/web/text/', methods=["POST"])
+@crossdomain(origin='*')
 def evaldata():
 	text = request.form.get("txt")
 	result, confidence = get_sentiment_info(text)
