@@ -1,12 +1,14 @@
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request, jsonify, make_response
 from info import classify2
 from math import e
 from redis import Redis
 from config import STATS_KEY, HOST, RHOST, RPASS, RPORT
 from cors import crossdomain
+import json
 
 app = Flask(__name__)
-app.debug = True
+app.debug = False
+app.config['MAX_CONTENT_LENGTH'] = (1 << 20) # 1 MB max request size
 conn = Redis(RHOST, RPORT, password=RPASS)
 
 def percentage_confidence(conf):
@@ -42,6 +44,25 @@ def evaldata():
 	result, confidence = get_sentiment_info(text)
 	conn.incr(STATS_KEY + "_web_calls")
 	return jsonify(result=result, confidence=confidence, sentence=text)
+
+@app.route('/api/batch/', methods=["POST"])
+@crossdomain(origin='*')
+def batch_handler():
+	json_data = request.get_json(force=True, silent=True)
+	if not json_data:
+		return jsonify(error="Bad JSON request")
+	result = []
+	for req in json_data:
+		sent, conf = get_sentiment_info(req)
+		result.append({"result": sent, "confidence": conf})
+
+	calls = int(conn.get(STATS_KEY + "_api_calls") if conn.exists(STATS_KEY + "_api_calls") else 0)
+	calls += len(result)
+	conn.set(STATS_KEY + "_api_calls", calls)
+	resp = make_response(json.dumps(result))
+	resp.mimetype = 'application/json'
+
+	return resp
 
 @app.route('/docs/api/')
 def api():

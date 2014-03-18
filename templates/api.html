@@ -12,6 +12,17 @@
 		  }
 		}
 	</code>
+
+    <br>
+    <br>
+
+    <p>
+        <b> New! </b> A batch API has been added as the bottleneck for most of you will be in the network latency. To use it
+        send a POST request with a JSON array of the texts you want to classify to <code>{{ host + url_for('batch_handler') }}</code>.
+        
+        You will receive another JSON array of responses (similar to the one above) corresponding to the same order
+        as in the request. The maximum content size can be 1 MB per request.
+    </p>
 {% endblock %}
 {% block scripts %}
 {% endblock %}
