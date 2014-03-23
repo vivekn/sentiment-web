@@ -4,7 +4,7 @@ This tool works by examining individual words and short sequences of words (n-gr
 
 You can read more about the details of the model in <a href="http://arxiv.org/abs/1305.6143"> this paper </a>. The code for the training module is also open source and <a href="https://github.com/vivekn/sentiment"> available on Github </a>. 
 
-AUTHOR: Vivek Narayanan < vivek_n@me.com >
+AUTHOR: Vivek Narayanan < vivek_n@me.com > 
 
 LICENSE: BSD
 
@@ -14,7 +14,8 @@ Setting up the server is a fairly straightforward task, here are the steps:
 
 1. Install pip, the python package manager.
 2. cd to the directory containing the sentiment code and run `pip install -r requirements.txt` . This will install the dependencies.
-3. Install redis and start the program redis-server (preferably via nohup/screen). Redis is used here only for tracking/stats purposes, if you don't want it remove all references to redis in the code.
+3. Install redis and start the program redis-server. Eg: `redis-server --daemonize yes`. 
+Redis is used here only for tracking/stats purposes, if you don't want it remove all references to redis in the code.
 4. Finally, create a file called "config.py" and set the parameters as in the example below.
 
 ````python    
@@ -23,11 +24,10 @@ Setting up the server is a fairly straightforward task, here are the steps:
     STATS_KEY="sentiment_stats" 
     RHOST=''
     RPORT=6379 
-    RPASS=None````
-
-HOST and PORT refer to where you want to host the python server
-
-STATS_KEY is the prefix used for the redis entries, RHOST, RPORT are RPASS are the host, port
-and password of the redis server.
-
-5. Run the server by executing the command `python run.py`
+    RPASS=None
+````
+ HOST and PORT refer to where you want to host the python server
+ STATS_KEY is the prefix used for the redis entries, RHOST, RPORT are RPASS are the host, port
+ and password of the redis server.
+ 
+ Run the server by executing the command `nohup python run.py &`
